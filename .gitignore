@@ -1,6 +1,6 @@
 # compiled output
-/dist
 /node_modules
+/dist
 
 # Logs
 logs
@@ -13,7 +13,7 @@ lerna-debug.log*
 
 # OS
 .DS_Store
-
+.env
 # Tests
 /coverage
 /.nyc_output
@@ -33,3 +33,7 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Yarn Cache
+.yarn_cache/*
+!.yarn_cache/.gitkeep

@@ -1,12 +1,23 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ChatModule } from './chat/chat.module';
-import { MessageModule } from './message/message.module';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
+import { AuthModule } from './auth/auth.module';
+import { DefaultDatabaseConfiguration } from '../libs/config/database.config';
+import { verifyToken } from '../libs/middleware/middleware';
 
 @Module({
-  imports: [ChatModule, MessageModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [DefaultDatabaseConfiguration(), AuthModule],
+  controllers: [],
+  providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(verifyToken).forRoutes({
+      path: '*',
+      method: RequestMethod.ALL,
+    });
+  }
+}
