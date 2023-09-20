@@ -14,11 +14,10 @@ export class AuthService {
     try {
       return await this.profileRepository.insert({
         ...profileDTO,
-        authUserId: authUserId,
+        authUserId,
       });
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
+      throw new Error(error);
     }
   }
 }

@@ -17,25 +17,24 @@ module.exports = {
       rules: {
         'max-lines-per-function': [
           'error',
-          {max: 100, skipBlankLines: true, skipComments: true, IIFEs: true},
+          { max: 100, skipBlankLines: true, skipComments: true, IIFEs: true },
         ],
       },
     },
-    {files: ['migrations/*.ts'], rules: {'unicorn/filename-case': 'off'}},
   ],
   root: true,
-  env: {node: true, jest: true},
+  env: { node: true, jest: true },
   ignorePatterns: ['dist', '.eslintrc.js'],
   rules: {
     'sonarjs/no-duplicate-string': 'off',
     'sonarjs/prefer-immediate-return': 'off',
     '@typescript-eslint/no-unused-vars': [
       'error',
-      {argsIgnorePattern: '^_', ignoreRestSiblings: true},
+      { argsIgnorePattern: '^_', ignoreRestSiblings: true },
     ],
     '@typescript-eslint/naming-convention': [
       'error',
-      {selector: ['enum', 'enumMember'], format: ['PascalCase']},
+      { selector: ['enum', 'enumMember'], format: ['PascalCase'] },
     ],
     '@typescript-eslint/no-restricted-imports': 'error',
     '@typescript-eslint/interface-name-prefix': 'off',
@@ -43,12 +42,12 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
     'max-lines': ['error', 600],
-    'max-params': ['error', {max: 3}],
+    'max-params': ['error', { max: 3 }],
     'max-lines-per-function': [
       'error',
-      {max: 40, skipBlankLines: true, skipComments: true, IIFEs: true},
+      { max: 40, skipBlankLines: true, skipComments: true, IIFEs: true },
     ],
-    'unicorn/filename-case': ['error', {case: 'kebabCase'}],
+    'unicorn/filename-case': ['error', { case: 'kebabCase' }],
     'no-console': 'error',
   },
-}
+};

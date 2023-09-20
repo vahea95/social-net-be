@@ -1,8 +1,10 @@
 import { LogWarn } from '../utils/logger';
+import { devConfig } from './dev.config';
 
 export class Config {
   static get<T = unknown>(parameter: string): T {
-    const variable = process.env[String(parameter)];
+    const config = { ...devConfig, ...process.env };
+    const variable = config[parameter];
 
     if (!variable) {
       LogWarn('Get', 'GetSecretFail', {

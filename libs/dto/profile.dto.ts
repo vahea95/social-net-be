@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsEmail, IsString } from 'class-validator';
 
 export class ProfileDataDto {
   @IsString()
@@ -7,6 +7,6 @@ export class ProfileDataDto {
   @IsString()
   surname: string;
 
-  @IsString()
+  @IsEmail()
   email: string;
 }
