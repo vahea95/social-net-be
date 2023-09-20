@@ -14,7 +14,7 @@ import { verifyToken } from '../libs/middleware/middleware';
   providers: [],
 })
 export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
+  configure(consumer: MiddlewareConsumer): void {
     consumer.apply(verifyToken).forRoutes({
       path: '*',
       method: RequestMethod.ALL,

@@ -1,13 +1,12 @@
-import { Column, Entity, Generated, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('profile')
 export class Profile {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Generated('uuid')
-  @Column({ type: 'varchar', unique: true })
-  uuid: string;
+  @Column({ type: 'varchar' })
+  authUserId: string;
 
   @Column({ type: 'varchar' })
   name: string;
