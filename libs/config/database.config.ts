@@ -20,7 +20,7 @@ export const DefaultDatabaseConfiguration = (): DynamicModule => {
       password: Config.get<string>('DB_SQL_PASSWORD'),
       database: Config.get<string>('DB_SQL_NAME'),
       entities: [Profile, Post],
-      synchronize: false,
+      synchronize: true,
       migrationsRun: false,
       autoLoadEntities: true,
       retryAttempts: 4,

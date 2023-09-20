@@ -6,7 +6,7 @@ export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable: true })
   image: string;
 
   @Column({ type: 'varchar' })
@@ -15,5 +15,9 @@ export class Post {
   @Column({ type: 'varchar' })
   title: string;
 
-  @ManyToOne(() => Profile, (profile) => profile.post) profile: Profile;
+  @Column({ type: 'number' })
+  profileId: number;
+
+  @ManyToOne(() => Profile, (profile) => profile.post)
+  profile: Profile;
 }

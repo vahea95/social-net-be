@@ -14,4 +14,8 @@ export class ProfileRepository extends Repository<Profile> {
   ): Promise<InsertResult> {
     return super.insert(entity);
   }
+
+  findOneWithPostRelationByAuthId(id: number): Promise<Profile> {
+    return this.findOne({ where: { id }, relations: { post: true } });
+  }
 }

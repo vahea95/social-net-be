@@ -4,12 +4,13 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-import { AuthModule } from './auth/auth.module';
+import { ProfileModule } from './auth/profile.module';
 import { DefaultDatabaseConfiguration } from '../libs/config/database.config';
 import { verifyToken } from '../libs/middleware/middleware';
+import { PostModule } from './post/post.module';
 
 @Module({
-  imports: [DefaultDatabaseConfiguration(), AuthModule],
+  imports: [DefaultDatabaseConfiguration(), ProfileModule, PostModule],
   controllers: [],
   providers: [],
 })
