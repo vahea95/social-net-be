@@ -1,6 +1,8 @@
 export const message = {
-  ProfileNotFound: 'profile_not_found',
-  GetProfile: 'get_profile',
-  SaveProfile: 'save_profile',
-  Success: 'success',
+  profileNotFound: 'profile_not_found',
+  getProfile: 'get_profile',
+  saveProfile: 'save_profile',
+  success: 'success',
+  createPost: 'createPost',
+  createProfile: 'createProfile',
 };

@@ -7,7 +7,7 @@ export class Post {
   id: number;
 
   @Column({ type: 'varchar', nullable: true })
-  image: string;
+  image?: string;
 
   @Column({ type: 'varchar' })
   postText: string;

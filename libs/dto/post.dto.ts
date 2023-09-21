@@ -1,4 +1,4 @@
-import { IsEmail, IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class PostDTO {
   @IsString()
@@ -7,7 +7,7 @@ export class PostDTO {
   @IsString()
   postText: string;
 
-  @IsEmail()
+  @IsString()
   title: string;
 
   @IsNumber()

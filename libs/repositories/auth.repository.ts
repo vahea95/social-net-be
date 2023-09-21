@@ -15,7 +15,7 @@ export class ProfileRepository extends Repository<Profile> {
     return super.insert(entity);
   }
 
-  findOneWithPostRelationByAuthId(id: number): Promise<Profile> {
+  findOneWithPostRelationById(id: number): Promise<Profile> {
     return this.findOne({ where: { id }, relations: { post: true } });
   }
 }

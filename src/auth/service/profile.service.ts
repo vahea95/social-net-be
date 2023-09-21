@@ -10,7 +10,7 @@ import { message } from '../../../libs/utils/messages';
 export class ProfileService {
   constructor(private readonly profileRepository: ProfileRepository) {}
 
-  async saveProfile(
+  async createProfile(
     profileDTO: ProfileDTO,
     authUserId: string,
   ): Promise<InsertResult> {
@@ -20,18 +20,18 @@ export class ProfileService {
         authUserId,
       });
     } catch (error) {
-      throw new InternalServerErrorException(message.SaveProfile);
+      throw new InternalServerErrorException(message.createProfile);
     }
   }
 
   async getPostByProfileId(id: number): Promise<ProfileDTO> {
     try {
       const profile =
-        await this.profileRepository.findOneWithPostRelationByAuthId(id);
-      if (!profile) throw new NotFoundException(message.ProfileNotFound);
+        await this.profileRepository.findOneWithPostRelationById(id);
+      if (!profile) throw new NotFoundException(message.profileNotFound);
       return profile;
     } catch (error) {
-      throw new InternalServerErrorException(message.GetProfile);
+      throw new InternalServerErrorException(message.getProfile);
     }
   }
 }

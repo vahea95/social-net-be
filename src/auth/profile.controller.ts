@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ProfileService } from './service/profile.service';
 import { ProfileDTO } from '../../libs/dto/profile.dto';
-import { message } from '../../libs/utils/messages';
+import { ResponseWrapper } from '../../libs/dto/response-wrapper.dto';
 
 @Controller('api/auth')
 export class ProfileController {
@@ -20,12 +20,12 @@ export class ProfileController {
   async profileInfo(
     @Body() profileDTO: ProfileDTO,
     @Req() req: Request,
-  ): Promise<Response> {
-    const verifiedToken = req['verifiedToken'];
+  ): Promise<ResponseWrapper> {
+    const authUserId = req['verifiedToken'];
 
-    await this.authService.saveProfile(profileDTO, verifiedToken);
+    await this.authService.createProfile(profileDTO, authUserId);
 
-    return Response.json(message.Success);
+    return ResponseWrapper.actionSucceed();
   }
 
   @Get('profile')
