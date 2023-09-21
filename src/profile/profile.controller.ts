@@ -11,7 +11,7 @@ import { ProfileService } from './service/profile.service';
 import { ProfileDTO } from '../../libs/dto/profile.dto';
 import { ResponseWrapper } from '../../libs/dto/response-wrapper.dto';
 
-@Controller('api/auth')
+@Controller('api')
 export class ProfileController {
   constructor(private readonly authService: ProfileService) {}
 
@@ -30,8 +30,10 @@ export class ProfileController {
 
   @Get('profile')
   @HttpCode(HttpStatus.OK)
-  async getByAuthId(id: number): Promise<ProfileDTO> {
-    const result = await this.authService.getPostByProfileId(id);
+  async getByAuthId(@Req() req: Request): Promise<ProfileDTO> {
+    const AuthUserUuid = req['verifiedToken'];
+
+    const result = await this.authService.getProfile(AuthUserUuid);
     return result;
   }
 }

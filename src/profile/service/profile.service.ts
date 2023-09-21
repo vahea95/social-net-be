@@ -24,10 +24,9 @@ export class ProfileService {
     }
   }
 
-  async getPostByProfileId(id: number): Promise<ProfileDTO> {
+  async getProfile(authUserId: string): Promise<ProfileDTO> {
     try {
-      const profile =
-        await this.profileRepository.findOneWithPostRelationById(id);
+      const profile = await this.profileRepository.findOneProfile(authUserId);
       if (!profile) throw new NotFoundException(message.profileNotFound);
       return profile;
     } catch (error) {

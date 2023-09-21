@@ -4,7 +4,7 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-import { ProfileModule } from './auth/profile.module';
+import { ProfileModule } from './profile/profile.module';
 import { DefaultDatabaseConfiguration } from '../libs/config/database.config';
 import { verifyToken } from '../libs/middleware/middleware';
 import { PostModule } from './post/post.module';

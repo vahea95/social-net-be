@@ -4,7 +4,7 @@ import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { PostDTO } from '../../libs/dto/post.dto';
 import { ResponseWrapper } from '../../libs/dto/response-wrapper.dto';
 
-@Controller('api/auth')
+@Controller('api/profile')
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
