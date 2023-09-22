@@ -1,6 +1,6 @@
 import { IsNumber, IsString } from 'class-validator';
 
-export class PostDTO {
+export class CommentDTO {
   @IsString()
   text: string;
 

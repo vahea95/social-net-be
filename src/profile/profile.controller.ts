@@ -8,7 +8,7 @@ import {
   Req,
 } from '@nestjs/common';
 import { ProfileService } from './service/profile.service';
-import { ProfileDTO } from '../../libs/dto/profile.dto';
+import { getProfileDTO, ProfileDTO } from '../../libs/dto/profile.dto';
 import { ResponseWrapper } from '../../libs/dto/response-wrapper.dto';
 
 @Controller('api')
@@ -30,7 +30,7 @@ export class ProfileController {
 
   @Get('profile')
   @HttpCode(HttpStatus.OK)
-  async getByAuthId(@Req() req: Request): Promise<ProfileDTO> {
+  async getByAuthId(@Req() req: Request): Promise<getProfileDTO> {
     const AuthUserUuid = req['verifiedToken'];
 
     const result = await this.authService.getProfile(AuthUserUuid);

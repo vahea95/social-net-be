@@ -1,5 +1,12 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Profile } from './profile';
+import { Comment } from './comment';
 
 @Entity('post')
 export class Post {
@@ -20,4 +27,7 @@ export class Post {
 
   @ManyToOne(() => Profile, (profile) => profile.post)
   profile: Profile;
+
+  @OneToMany(() => Comment, (comment) => comment.post, { cascade: true })
+  comment: Comment[];
 }

@@ -10,3 +10,17 @@ export class ProfileDTO {
   @IsEmail()
   email: string;
 }
+
+export class getProfileDTO {
+  @IsString()
+  id: number;
+
+  @IsString()
+  name: string;
+
+  @IsString()
+  surname: string;
+
+  @IsEmail()
+  email: string;
+}

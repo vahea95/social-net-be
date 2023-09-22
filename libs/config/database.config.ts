@@ -4,6 +4,7 @@ import { Config } from './env.config';
 import { ConfigModule } from '@nestjs/config';
 import { Profile } from '../entities/profile';
 import { Post } from '../entities/post';
+import { Comment } from '../entities/comment';
 
 export const DefaultDatabaseConfiguration = (): DynamicModule => {
   return TypeOrmModule.forRootAsync({
@@ -19,8 +20,8 @@ export const DefaultDatabaseConfiguration = (): DynamicModule => {
       username: Config.get<string>('DB_SQL_USERNAME'),
       password: Config.get<string>('DB_SQL_PASSWORD'),
       database: Config.get<string>('DB_SQL_NAME'),
-      entities: [Profile, Post],
-      synchronize: false,
+      entities: [Profile, Post, Comment],
+      synchronize: true,
       migrationsRun: false,
       autoLoadEntities: true,
       retryAttempts: 4,

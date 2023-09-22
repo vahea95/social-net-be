@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Post } from './post';
+import { Comment } from './comment';
 
 @Entity('profile')
 export class Profile {
@@ -20,4 +21,7 @@ export class Profile {
 
   @OneToMany(() => Post, (post) => post.profile, { cascade: true })
   post: Post[];
+
+  @OneToMany(() => Comment, (comment) => comment.profile, { cascade: true })
+  comment: Comment[];
 }

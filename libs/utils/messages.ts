@@ -7,4 +7,5 @@ export const message = {
   createProfile: 'create_profile',
   getUserPosts: 'get_posts',
   getAllPosts: 'get_all_posts',
+  createComment: 'create_comment',
 };

@@ -11,7 +11,6 @@ export class Config {
         parameter,
       });
     }
-
     return <T>variable;
   }
 }

@@ -4,7 +4,6 @@ export class ResponseWrapper<T = unknown> {
   status: ResponseStatus;
   data: T;
 
-  // eslint-disable-next-line max-params
   static of<T>(
     data: T,
     code: ResponseStatusCodes,

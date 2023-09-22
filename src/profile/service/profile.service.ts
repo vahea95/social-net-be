@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ProfileDTO } from '../../../libs/dto/profile.dto';
+import { getProfileDTO, ProfileDTO } from '../../../libs/dto/profile.dto';
 import { ProfileRepository } from '../../../libs/repositories/profile.repository';
 import { InsertResult } from 'typeorm';
 import { InternalServerErrorException } from '../../../libs/exceptions/internal-server';
@@ -24,7 +24,7 @@ export class ProfileService {
     }
   }
 
-  async getProfile(authUserId: string): Promise<ProfileDTO> {
+  async getProfile(authUserId: string): Promise<getProfileDTO> {
     try {
       const profile = await this.profileRepository.findOneProfile(authUserId);
       if (!profile) throw new NotFoundException(message.profileNotFound);
