@@ -14,4 +14,12 @@ export class PostRepository extends Repository<Post> {
   ): Promise<InsertResult> {
     return super.insert(entity);
   }
+
+  findUserPosts(profileId: number): Promise<Post[]> {
+    return this.find({ where: { profileId } });
+  }
+
+  findAllPosts(): Promise<Post[]> {
+    return this.find();
+  }
 }

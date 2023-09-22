@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ProfileDTO } from '../../../libs/dto/profile.dto';
-import { ProfileRepository } from '../../../libs/repositories/auth.repository';
+import { ProfileRepository } from '../../../libs/repositories/profile.repository';
 import { InsertResult } from 'typeorm';
 import { InternalServerErrorException } from '../../../libs/exceptions/internal-server';
 import { NotFoundException } from '../../../libs/exceptions/not-found.exception';

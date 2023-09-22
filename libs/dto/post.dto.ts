@@ -13,3 +13,14 @@ export class PostDTO {
   @IsNumber()
   profileId: number;
 }
+
+export class GetPostDTO {
+  @IsString()
+  image?: string;
+
+  @IsString()
+  postText: string;
+
+  @IsString()
+  title: string;
+}
