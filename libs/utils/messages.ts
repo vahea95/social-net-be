@@ -8,4 +8,5 @@ export const message = {
   getUserPosts: 'get_posts',
   getAllPosts: 'get_all_posts',
   createComment: 'create_comment',
+  getPostComment: 'get_post_comment',
 };

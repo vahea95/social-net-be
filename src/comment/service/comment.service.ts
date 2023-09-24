@@ -12,8 +12,22 @@ export class CommentService {
   async createComment(commentDTO: CommentDTO): Promise<InsertResult> {
     try {
       return await this.commentRepository.insert(commentDTO);
-    } catch {
+    } catch (error) {
       throw new InternalServerErrorException(message.createComment);
+    }
+  }
+
+  async getPostComments(postId: number): Promise<CommentDTO[]> {
+    try {
+      const comments = await this.commentRepository.findPostComments(postId);
+      return comments.map((comment) => ({
+        id: comment.id,
+        text: comment.text,
+        profileId: comment.profileId,
+        postId: comment.postId,
+      }));
+    } catch {
+      throw new InternalServerErrorException(message.getPostComment);
     }
   }
 }

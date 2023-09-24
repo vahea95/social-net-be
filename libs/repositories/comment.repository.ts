@@ -14,4 +14,8 @@ export class CommentRepository extends Repository<Comment> {
   ): Promise<InsertResult> {
     return super.insert(entity);
   }
+
+  findPostComments(postId: number): Promise<Comment[]> {
+    return this.find({ where: { postId } });
+  }
 }
