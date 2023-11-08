@@ -10,12 +10,15 @@ export class CommentRepository extends Repository<Comment> {
   }
 
   override insert(
-    entity: QueryDeepPartialEntity<Comment> | QueryDeepPartialEntity<Comment>[],
+      entity: QueryDeepPartialEntity<Comment> | QueryDeepPartialEntity<Comment>[],
   ): Promise<InsertResult> {
     return super.insert(entity);
   }
 
   findPostComments(postId: number): Promise<Comment[]> {
-    return this.find({ where: { postId } });
+    return this.find({
+      where: { postId },
+      relations: { post: true, profile: true },
+    });
   }
 }

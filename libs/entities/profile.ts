@@ -19,6 +19,9 @@ export class Profile {
   @Column({ unique: true })
   email: string;
 
+  @Column({nullable: true})
+  avatarUrl : string
+
   @OneToMany(() => Post, (post) => post.profile, { cascade: true })
   post: Post[];
 

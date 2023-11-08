@@ -13,13 +13,13 @@ export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', nullable: true })
-  image?: string;
+  @Column({ type: 'varchar', length:512, nullable: true })
+  imageUrl?: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', length:600, })
   postText: string;
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar',length:512, })
   title: string;
 
   @Column({ type: 'number' })
@@ -30,4 +30,5 @@ export class Post {
 
   @OneToMany(() => Comment, (comment) => comment.post, { cascade: true })
   comment: Comment[];
+
 }

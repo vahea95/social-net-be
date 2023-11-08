@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { getProfileDTO, ProfileDTO } from '../../../libs/dto/profile.dto';
 import { ProfileRepository } from '../../../libs/repositories/profile.repository';
-import { InsertResult } from 'typeorm';
+import {InsertResult, UpdateResult} from 'typeorm';
 import { InternalServerErrorException } from '../../../libs/exceptions/internal-server';
 import { NotFoundException } from '../../../libs/exceptions/not-found.exception';
 import { message } from '../../../libs/utils/messages';
@@ -11,8 +11,8 @@ export class ProfileService {
   constructor(private readonly profileRepository: ProfileRepository) {}
 
   async createProfile(
-    profileDTO: ProfileDTO,
-    authUserId: string,
+      profileDTO: ProfileDTO,
+      authUserId: string,
   ): Promise<InsertResult> {
     try {
       return await this.profileRepository.insert({
@@ -20,6 +20,7 @@ export class ProfileService {
         authUserId,
       });
     } catch (error) {
+      console.log(error);
       throw new InternalServerErrorException(message.createProfile);
     }
   }
@@ -30,7 +31,19 @@ export class ProfileService {
       if (!profile) throw new NotFoundException(message.profileNotFound);
       return profile;
     } catch (error) {
+      console.log(error)
       throw new InternalServerErrorException(message.getProfile);
     }
+  }
+
+  async updateProfile(authUserId : string, profileDto : ProfileDTO) : Promise<UpdateResult>{
+    try {
+      return await this.profileRepository.updateAvatar(authUserId,profileDto)
+    }
+    catch(error) {
+      throw new InternalServerErrorException(message.avatarImage);
+    }
+
+
   }
 }

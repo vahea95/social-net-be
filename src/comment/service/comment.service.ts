@@ -20,13 +20,17 @@ export class CommentService {
   async getPostComments(postId: number): Promise<CommentDTO[]> {
     try {
       const comments = await this.commentRepository.findPostComments(postId);
+      console.log(comments)
       return comments.map((comment) => ({
         id: comment.id,
         text: comment.text,
         profileId: comment.profileId,
         postId: comment.postId,
-      }));
-    } catch {
+        created_at:comment.created_at,
+        userName: comment.profile.name,
+        userSurname: comment.profile.surname,
+    }))
+    }catch {
       throw new InternalServerErrorException(message.getPostComment);
     }
   }

@@ -9,6 +9,10 @@ export class ProfileDTO {
 
   @IsEmail()
   email: string;
+
+  @IsString()
+  avatarUrl: string;
+
 }
 
 export class getProfileDTO {
@@ -23,4 +27,7 @@ export class getProfileDTO {
 
   @IsEmail()
   email: string;
+
+  @IsString()
+  avatarUrl: string;
 }

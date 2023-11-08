@@ -5,13 +5,15 @@ import {
   HttpCode,
   HttpStatus,
   Param,
-  Post,
+  Post, UseInterceptors,
 } from '@nestjs/common';
 import { ResponseWrapper } from '../../libs/dto/response-wrapper.dto';
 import { CommentDTO } from '../../libs/dto/comment.dto';
 import { CommentService } from './service/comment.service';
+import {VerifyTokenInterceptor} from "../../libs/interceptor/token.interceptor";
 
 @Controller('api')
+@UseInterceptors(VerifyTokenInterceptor)
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
