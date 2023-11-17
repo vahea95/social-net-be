@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CommentDTO } from '../../../libs/dto/comment.dto';
+import { CommentDTO} from '../../../libs/dto/comment.dto';
 import { CommentRepository } from '../../../libs/repositories/comment.repository';
 import { InternalServerErrorException } from '../../../libs/exceptions/internal-server';
 import { message } from '../../../libs/utils/messages';
@@ -9,9 +9,15 @@ import { InsertResult } from 'typeorm';
 export class CommentService {
   constructor(private readonly commentRepository: CommentRepository) {}
 
-  async createComment(commentDTO: CommentDTO): Promise<InsertResult> {
+  async createComment(commentDTO: CommentDTO): Promise<{  id: number , createdAt : Date}> {
     try {
-      return await this.commentRepository.insert(commentDTO);
+       await this.commentRepository.insert(commentDTO);
+      const id = commentDTO.id
+      const createdAt = commentDTO.created_at
+      return {
+        id,
+        createdAt
+      }
     } catch (error) {
       throw new InternalServerErrorException(message.createComment);
     }

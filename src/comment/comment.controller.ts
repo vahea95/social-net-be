@@ -11,6 +11,7 @@ import { ResponseWrapper } from '../../libs/dto/response-wrapper.dto';
 import { CommentDTO } from '../../libs/dto/comment.dto';
 import { CommentService } from './service/comment.service';
 import {VerifyTokenInterceptor} from "../../libs/interceptor/token.interceptor";
+import {InsertResult} from "typeorm";
 
 @Controller('api')
 @UseInterceptors(VerifyTokenInterceptor)
@@ -21,9 +22,9 @@ export class CommentController {
   @HttpCode(HttpStatus.OK)
   async createComment(
     @Body() commentDTO: CommentDTO,
-  ): Promise<ResponseWrapper> {
-    await this.commentService.createComment(commentDTO);
-    return ResponseWrapper.actionSucceed();
+  ): Promise<{ id: number; createdAt: Date }> {
+    return await this.commentService.createComment(commentDTO);
+
   }
 
   @Get('comment/:postId')

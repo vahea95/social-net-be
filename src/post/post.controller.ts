@@ -14,6 +14,7 @@ import {
 import {allFeedDTO, allRelationalPostDTO, FeedDTO, GetRelationalPostDTO, PostDTO} from '../../libs/dto/post.dto';
 import { ResponseWrapper } from '../../libs/dto/response-wrapper.dto';
 import {VerifyTokenInterceptor} from "../../libs/interceptor/token.interceptor";
+import {FeedInterceptor} from "../../libs/interceptor/feed.interceptor";
 
 @Controller('api')
 export class PostController {
@@ -29,22 +30,24 @@ export class PostController {
 
 
   @Get('feed')
-  @UseInterceptors(VerifyTokenInterceptor)
+  @UseInterceptors(FeedInterceptor)
   @HttpCode(HttpStatus.OK)
   async getPosts(@Req() req:Request, @Query('page') page: number): Promise<allFeedDTO> {
     const authUserId = req['verifiedToken'];
 
     const posts = await this.postService.getPosts(authUserId, page);
-    console.log(posts)
     return posts;
   }
 
+  /*
   @Get('guest')
   @HttpCode(HttpStatus.OK)
   async getGuestPosts(@Req() req:Request, @Query('page') page: number): Promise<allFeedDTO> {
     const posts = await this.postService.getPostsForGuests(page);
     return posts;
   }
+
+   */
 
   @Get('post/:profileId')
   @UseInterceptors(VerifyTokenInterceptor)

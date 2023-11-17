@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import {
   DataSource,
   DeleteResult,
-  InsertResult,
+  InsertResult, Not,
   Repository,
   UpdateResult,
 } from 'typeorm';
@@ -39,10 +39,24 @@ export class PostRepository extends Repository<Post> {
   }
 
 
+
+  findAllPostsWithoutSameAuthId(page: number, profileId: number): Promise<Post[]> {
+    const pageSize = 6
+    const skipFormula = (page - 1) * pageSize;
+    Number(skipFormula)
+
+    return this.find({
+      relations: { profile: true, comment: { profile: true } },
+      skip: skipFormula,
+      take: pageSize,
+    });
+  }
+
+
   findAllPosts(page: number): Promise<Post[]> {
     const pageSize = 6
     const skipFormula = (page - 1) * pageSize;
-    Number(skipFormula )
+    Number(skipFormula)
 
     return this.find({
       relations: { profile: true, comment: { profile: true } },

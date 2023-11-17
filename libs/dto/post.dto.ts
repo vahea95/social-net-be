@@ -34,9 +34,6 @@ export class FeedDTO {
   profileId: number;
 
   comment : CommentDTO[]
-
-  @IsNumber()
-  page : number
 }
 
 

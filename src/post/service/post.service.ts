@@ -3,8 +3,6 @@ import { PostRepository } from '../../../libs/repositories/post.repository';
 import {
   allFeedDTO,
   allRelationalPostDTO,
-  FeedDTO,
-  GetRelationalPostDTO,
   PostDTO,
 } from '../../../libs/dto/post.dto';
 import { DeleteResult, InsertResult, UpdateResult } from 'typeorm';
@@ -29,40 +27,32 @@ export class PostService {
   }
 
   async getPosts(
-      authUserId: string,
+      authUserId: string ,
       page: number,
   ): Promise<allFeedDTO> {
     try {
-      const posts = await this.postRepository.findAllPosts(page);
-      const filteredPosts = posts.filter(post => post.profile.authUserId !== authUserId);
-      const feed = filteredPosts.map((post) => ({
-        id: post.id,
-        imageUrl: post.imageUrl,
-        postText: post.postText,
-        title: post.title,
-        name: post.profile.name,
-        surname : post.profile.surname,
-        profileId : post.profileId,
-        comment: this.getComment(post.comment),
-        page:page
-      }));
-      const allCountData = await this.postRepository.countPosts()
-      return {
-        posts : feed,
-        page : page,
-        countAllData : allCountData
-      }
-    } catch (error) {
-      console.log(error, 7854)
-      throw new InternalServerErrorException(message.getAllPosts);
-    }
-  }
 
-  async getPostsForGuests(
-      page: number,
-  ): Promise<allFeedDTO> {
-    try {
       const posts = await this.postRepository.findAllPosts(page);
+      if(authUserId) {
+        const filteredPosts = posts.filter(post => post.profile.authUserId !== authUserId);
+        const feed = filteredPosts.map((post) => ({
+          id: post.id,
+          imageUrl: post.imageUrl,
+          postText: post.postText,
+          title: post.title,
+          name: post.profile.name,
+          surname: post.profile.surname,
+          profileId: post.profileId,
+          comment: this.getComment(post.comment),
+          page: page
+        }));
+        const allCountData = await this.postRepository.countPosts()
+        return {
+          posts: feed,
+          page: page,
+          countAllData: allCountData
+        }
+      }
       const ArrPosts = posts.map((post) => ({
         id: post.id,
         imageUrl: post.imageUrl,
@@ -81,8 +71,10 @@ export class PostService {
         page : page,
         countAllData : allCountData
       }
+
+
     } catch (error) {
-      console.log(error)
+      console.log(error, 7854)
       throw new InternalServerErrorException(message.getAllPosts);
     }
   }
@@ -95,6 +87,7 @@ export class PostService {
       throw new InternalServerErrorException(message.deletePost);
     }
   }
+
 
   async updatePost(id: number, postDTO: PostDTO): Promise<UpdateResult> {
     try {

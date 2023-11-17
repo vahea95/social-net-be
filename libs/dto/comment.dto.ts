@@ -23,3 +23,12 @@ export class CommentDTO {
   @IsDate()
   created_at: Date;
 }
+
+export class CommentWithIdDTO {
+  @IsNumber()
+  id : number
+
+  @IsString()
+  created_at: Date
+
+}
