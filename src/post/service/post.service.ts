@@ -10,11 +10,12 @@ import { InternalServerErrorException } from '../../../libs/exceptions/internal-
 import { message } from '../../../libs/utils/messages';
 import { CommentDTO } from '../../../libs/dto/comment.dto';
 import { Comment } from '../../../libs/entities/comment';
-import {CommentRepository} from "../../../libs/repositories/comment.repository";
+import {ProfileRepository} from "../../../libs/repositories/profile.repository";
+import {NotFoundException} from "../../../libs/exceptions/not-found.exception";
 
 @Injectable()
 export class PostService {
-  constructor(private readonly postRepository: PostRepository, private readonly commentRepository: CommentRepository) {}
+  constructor(private readonly postRepository: PostRepository, private readonly profileRepository : ProfileRepository) {}
 
   async createPost(postDTO: PostDTO): Promise<InsertResult> {
     try {
@@ -79,9 +80,17 @@ export class PostService {
     }
   }
 
-  async deletePost(id: number): Promise<DeleteResult> {
+  async deletePost(id: number, authUserId :string): Promise<DeleteResult> {
     try {
-      return await this.postRepository.deletePostById(id);
+      const profile = await this.profileRepository.findOneProfile(authUserId)
+
+      const post = await this.postRepository.findONePostById(id)
+      if (profile.id === post.profileId) {
+        return await this.postRepository.deletePostById(id,authUserId);
+      }
+      else {
+        throw new  NotFoundException("not found!")
+      }
     } catch (error) {
       console.log(error)
       throw new InternalServerErrorException(message.deletePost);
@@ -89,9 +98,17 @@ export class PostService {
   }
 
 
-  async updatePost(id: number, postDTO: PostDTO): Promise<UpdateResult> {
+  async updatePost(id: number, postDTO: PostDTO, authUserId): Promise<UpdateResult> {
     try {
-      return await this.postRepository.updatePostById(id, postDTO);
+      const profile = await this.profileRepository.findOneProfile(authUserId)
+
+      const post = await this.postRepository.findONePostById(id)
+      if (profile.id === post.profileId) {
+        return await this.postRepository.updatePostById(id, postDTO);
+      }
+      else {
+        throw new  NotFoundException("not found!")
+      }
     } catch (error) {
       throw new InternalServerErrorException(message.updatePost);
     }

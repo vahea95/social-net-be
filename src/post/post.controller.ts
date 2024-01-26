@@ -63,8 +63,9 @@ export class PostController {
   @Delete('post/:id')
   @UseInterceptors(VerifyTokenInterceptor)
   @HttpCode(HttpStatus.OK)
-  async deletePost(@Param('id') id: number): Promise<ResponseWrapper> {
-    await this.postService.deletePost(id);
+  async deletePost(@Req() req:Request, @Param('id') id: number): Promise<ResponseWrapper> {
+    const authUserId = req['verifiedToken'];
+    await this.postService.deletePost(id, authUserId);
     return ResponseWrapper.actionSucceed();
   }
 
@@ -72,10 +73,12 @@ export class PostController {
   @UseInterceptors(VerifyTokenInterceptor)
   @HttpCode(HttpStatus.OK)
   async updatePost(
+      @Req() req:Request,
       @Param('id') id: number,
       @Body() postDTO: PostDTO,
   ): Promise<ResponseWrapper> {
-    await this.postService.updatePost(id, postDTO);
+    const authUserId = req['verifiedToken'];
+    await this.postService.updatePost(id, postDTO,authUserId);
     return ResponseWrapper.actionSucceed();
   }
 }
